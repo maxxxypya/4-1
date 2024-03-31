@@ -1,144 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace _4_1
+internal class Program
 {
-   class OneDimentioal<T>
+    public static void Main()
     {
-
-        private T[] Masiv;
-        private int capacity;
-        private int size;
-
-        public Masiv1(int capacity)
+        Masiv1<int> IntMass = new Masiv1<int>();
+        for (int i = 0; i < 8; i++)
         {
-            capacity = capacity;
-            Masiv = new T[capacity];
-            size = 0;
+            IntMass.Add(i);
         }
+        IntMass.WriteArray();
+        int y = 3;
+        IntMass.Reverse();
+        IntMass.WriteArray();
+        Console.WriteLine(IntMass.Kolvo());
+        Console.WriteLine(IntMass.CountKolvo((x) => x == 2));
+        IntMass.Del(y, (a, b) => a == b);
+        IntMass.WriteArray();
+        Console.WriteLine(IntMass.If1((x) => x % 3 == 0));
+        Console.WriteLine(IntMass.IfAll((x) => x % 2 == 0));
+        IntMass.ForAll((x) => x * x);
+        IntMass.WriteArray();
 
-        public Masiv1() : this(7)
+        Masiv1<string> StringMass = new Masiv1<string>();
+        for (int i = 0; i < 8; i++)
         {
+            StringMass.Add($"{i + 1}");
         }
-
-        public void Add(T item)
-        {
-            if (size >= capacity)
-            {
-                capacity = capacity * 2 + 1;
-                Masiv.Resize(ref Masiv, capacity);
-            }
-            Masiv[size] = item;
-            size++;
-        }
-
-        public void Reverse()
-        {
-            T[] newMass = new T[size];
-            for (int i = size - 1; i >= 0; i--)
-            {
-                newMass[i] = Masiv[size - i - 1];
-            }
-            Masiv.Copy(newMass, 0, Masiv, 0, size);
-        }
-
-
-        public int Kolvo()
-        {
-            return size;
-        }
-
-        public int CountKolvo(Func<T, bool> cond)
-        {
-            T[] newMass = Method(cond);
-            return newMass.Length;
-        }
-
-        public void Del(T item, Func<T, T, bool> deleg)
-        {
-            T[] newMass = new T[size];
-            int mark = 0;
-            for (int i = 0; i < size; i++)
-            {
-                if (!deleg(item, Masiv[i]))
-                {
-                    newMass[i] = Masiv[i];
-                }
-                else
-                {
-                    mark = i;
-                }
-            }
-            Masiv.Copy(newMass, 0, Masiv, 0, size - 1);
-            for (int i = mark; i < size; i++)
-            {
-                Masiv[i] = Masiv[i + 1];
-            }
-            size--;
-
-        }
-
-        public T[] Method(Func<T, bool> condition)
-        {
-            T[] newMass = new T[size];
-            int count = 0;
-            for (int i = 0; i < size; i++)
-            {
-                if (condition(Masiv[i]))
-                {
-                    newMass[count] = Masiv[i];
-                    count++;
-                }
-            }
-            Masiv.Resize(ref newMass, count);
-            return newMass;
-        }
-
-        public void ForAll(Func<T, T> condition)
-        {
-            T[] newMass = new T[size];
-            for (int i = 0; i < size; i++)
-            {
-                Masiv[i] = condition(Masiv[i]);
-            }
-
-            for (int i = 0; i < size; i++)
-            {
-                Console.Write(Masiv[i] + " ");
-            }
-            Console.WriteLine("");
-        }
-
-        public bool If1(Func<T, bool> cond)
-        {
-            T[] newMass = Method(cond);
-            if (newMass.Length > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool IfAll(Func<T, bool> cond)
-        {
-            T[]newArray = Method(cond);
-            if (newArray.Length == size)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void WriteArray()
-        {
-            for (int i = 0; i < Masiv.Length; i++)
-            {
-                Console.Write(Masiv[i] + " ");
-            }
-            Console.WriteLine();
-        }
+        StringMass.WriteArray();
+        string g = "3";
+        StringMass.Reverse();
+        StringMass.WriteArray();
+        Console.WriteLine(StringMass.Amount());
+        Console.WriteLine(StringMass.CountAmount((x) => x == "print(hello_world"));
+        StringMass.Remove(g, (a, b) => a == b);
+        StringMass.WriteArray();
+        Console.WriteLine(StringMass.If1((x) => x != "def_func_1:"));
+        Console.WriteLine(StringMass.IfAll((x) => x != "for___in_range(loxx)"));
+        StringMass.ForAll((x) => x + "ab");
+        StringMass.WriteArray();
     }
 }
